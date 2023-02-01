@@ -84,7 +84,7 @@ split
     if (((game.ProcessName == "DOSBox") || (game.ProcessName == "TLBA2C") && (current.loc == 6540) && (old.loc == 6400)) || ((game.ProcessName == "TLBA2C") && (current.locgog == 6540) && (old.locgog == 6400)) && (vars.splits[6]) && (!vars.splits[7])) { print("split 8"); vars.splits[7] = true; return true; }
     
     //Win
-    if (((game.ProcessName == "DOSBox") || (game.ProcessName == "TLBA2C") && (current.cin == 19463)) || ((game.ProcessName == "TLBA2C") && (current.cingog == 22796)) && (vars.splits[7])) { print("split 9"); return true; }
+    if (((game.ProcessName == "DOSBox") && (current.cin == 19463)) || ((game.ProcessName == "TLBA2C") && (current.cin == 22796) || (current.cingog == 22796)) && (vars.splits[7])) { print("split 9"); return true; }
     
     //default  
     return false;  
