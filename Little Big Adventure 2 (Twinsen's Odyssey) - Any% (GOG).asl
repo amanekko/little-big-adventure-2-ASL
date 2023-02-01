@@ -1,5 +1,5 @@
 // DOSBox LBA2
-state("DOSBox")
+state("dosbox")
 {  
 //Only works with Dosbox 0.74-2.1
 	ushort loc : 0x75B6D0, 0x04D178;
