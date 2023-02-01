@@ -28,7 +28,7 @@ start
 {  
 print("game.ProcessName: " + game.ProcessName);
 
-    if ((game.ProcessName == "dosbox" && (old.cinematic == 66) || game.ProcessName == "TLBA2C" && (old.cinematic == 18388)) && (current.cinematic == 0) )
+    if ((game.ProcessName == "DOSBox" && (old.cinematic == 66) || game.ProcessName == "TLBA2C" && (old.cinematic == 18388)) && (current.cinematic == 0) )
     {  
         // We keep a list of 'markers',
         bool[] splits = new bool[vars.splitCount];
@@ -46,7 +46,7 @@ print("game.ProcessName: " + game.ProcessName);
 // Will reset the timer if the intro cinematic is playing
 reset
 {
-    if((game.ProcessName == "dosbox" && (old.cinematic == 66) || game.ProcessName == "TLBA2C" && (old.cinematic == 18388)) && (current.cinematic != old.cinematic)) {
+    if((game.ProcessName == "DOSBox" && (old.cinematic == 66) || game.ProcessName == "TLBA2C" && (old.cinematic == 18388)) && (current.cinematic != old.cinematic)) {
         print("Reset");
         return true;
     }
@@ -81,7 +81,7 @@ split
     if ((current.location == 6540) && (old.location == 6400) && (vars.splits[6])) { print("split 8"); vars.splits[7] = true; return true; }
     
     //Win
-    if ((game.ProcessName == "dosbox" && current.cinematic == 19463) || (game.ProcessName == "TLBA2C" && current.cinematic == 22796) && (old.cinematic == 0) && (vars.splits[7])) { print("split 9"); return true; }
+    if ((game.ProcessName == "DOSBox" && current.cinematic == 19463) || (game.ProcessName == "TLBA2C" && current.cinematic == 22796) && (old.cinematic == 0) && (vars.splits[7])) { print("split 9"); return true; }
     
     //default  
     return false;  
