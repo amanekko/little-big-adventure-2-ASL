@@ -199,6 +199,7 @@ startup
                 { "All achievements", "misc_var_118_heal_bowler", "I've got your back" },
                 { "All achievements", "misc_kill_time_commando", "Time Commando (may be unstable)" },
                 { "All achievements", "misc_kash_cow", "Kash Cow" },
+                { "All achievements", "misc_op_achievement", "OP" },
 
         { null, "Items", "Items" },
             { "Items", vars.itemLabels[0], "Holomap" },
@@ -380,9 +381,9 @@ init
         // var game
         { "in_ending_cutscene", new[] { 0x481F9A, 0x269D4A } },
         { "wizard_tunic",       new[] { 0x481F3A, 0x269CEA } },
-        { "blowtron",           new[] { 0x4A2992, 0x28A742 } },
-        { "pistolaser",         new[] { 0x4A285E, 0x28A60E } },
-        { "super_jetpack",      new[] { 0x4A28A0, 0x28A650 } },
+        { "blowtron",           new[] { 0x4A2992, 0x28A840 } },
+        { "pistolaser",         new[] { 0x4A285E, 0x28A70C } },
+        { "super_jetpack",      new[] { 0x4A28A0, 0x28A74E } },
         { "heal_dinofly",       new[] { 0x481EB4, 0x269C64 } },
         { "heal_clam_joe",      new[] { 0x481FA2, 0x269D52 } },
         { "heal_bowler",        new[] { 0x481F4C, 0x269CFC } },
@@ -392,7 +393,7 @@ init
         // var track
         { "track",              new[] { 0x48235C, 0x26A110 } },
         // unknown
-        { "kill_time_commando", new[] { 0x4BD2C2, 0x26B41C } }, // 139 & 2 -> may be unstable
+        { "kill_time_commando", new[] { 0x4BD2C2, 0x26B268 } }, // 139 & 65535 -> may be unstable
         { "on_track",           new[] { 0x47F6D4, 0x39FA50 } } // may be unstable
     };
 
@@ -640,7 +641,7 @@ split
         vars.Log("Split: Kiss Frog");
         return true;
     }
-    if (!vars.CompletedSplits.Contains("misc_kill_time_commando") && IsSplitEnabled("misc_kill_time_commando") && watchers["scene"].Current == 159 && (watchers["kill_time_commando"].Current == 2 || watchers["kill_time_commando"].Current == 139))
+    if (!vars.CompletedSplits.Contains("misc_kill_time_commando") && IsSplitEnabled("misc_kill_time_commando") && watchers["scene"].Current == 159 && (watchers["kill_time_commando"].Current == 65535 || watchers["kill_time_commando"].Current == 139))
     {
         vars.CompletedSplits.Add("misc_kill_time_commando");
         vars.Log("Split: Kill Time Commando");
@@ -663,9 +664,9 @@ split
     if (!vars.CompletedSplits.Contains("misc_op_achievement") && IsSplitEnabled("misc_op_achievement"))
     {
          if (watchers["it_FLAG_BALLE_MAGIQUE"].Current > 0 &&
-             watchers["it_STATE_BLOWTRON"].Current > 0 &&
-             watchers["it_STATE_SUPER_JETPACK"].Current > 0 &&
-             watchers["it_STATE_COMPLETED_PISTOLASER"].Current > 0)
+             watchers["blowtron"].Current > 0 &&
+             watchers["super_jetpack"].Current > 0 &&
+             watchers["pistolaser"].Current > 1)
          {
              vars.CompletedSplits.Add("misc_op_achievement");
              vars.Log("Split: OP");
