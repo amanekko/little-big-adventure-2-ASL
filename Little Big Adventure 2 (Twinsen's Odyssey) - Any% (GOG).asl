@@ -21,7 +21,7 @@ startup
         "it_FLAG_DART",
         "it_FLAG_BOULE_SENDELL", 
         "it_FLAG_TUNIQUE",
-        "it_FLAG_PERLE",
+        "it_FLAG_PERLE_OR_TOKEN",
         "it_FLAG_CLEF_PYRAMID",
         "it_FLAG_VOLANT",
         "it_FLAG_MONEY",
@@ -167,7 +167,7 @@ startup
                 { "Glitchless", "sc46:sc42", "Lighthouse" },
                 { "Glitchless", "it_FLAG_DIPLOME", "Magic Diploma" },
                 { "Glitchless", "sc92:sc47", "Twinsun" },
-                { "Glitchless", "it_FLAG_PERLE", "Red Pearl" },
+                { "Glitchless", "it_STATE_PEARL", "Red Pearl" },
                 { "Glitchless", "sc17:sc42", "Sewers" },
                 { "Glitchless", "sc75", "Moon" },
                 { "Glitchless", "sc138", "Otringal" },
@@ -207,7 +207,7 @@ startup
             { "Items", vars.itemLabels[2], "Dart" },
             { "Items", vars.itemLabels[3], "Sendell Ball" },
             { "Items", vars.itemLabels[4], "Tunic" },
-            { "Items", vars.itemLabels[5], "Pearl" },
+            { "Items", vars.itemLabels[5], "Pearl / Itinerary Token" },
             { "Items", vars.itemLabels[6], "Pyramid Key" },
             { "Items", vars.itemLabels[7], "Wheel" },
             { "Items", vars.itemLabels[8], "Kash" },
@@ -242,6 +242,7 @@ startup
             { "Items", vars.itemLabels[37], "Burgomaster Key" },
             { "Items", vars.itemLabels[38], "Burgomaster Note" },
             { "Items", vars.itemLabels[39], "Protection 🏆" },
+            { "Items", "it_STATE_PEARL", "Pearl" }, 
             { "Items", "it_STATE_WIZARD_TUNIC", "Wizard Tunic 🏆" }, 
             { "Items", "it_STATE_BLOWTRON", "Blowtron 🏆" },
             { "Items", "it_STATE_COMPLETED_PISTOLASER", "Completed Pistolaser 🏆" },
@@ -380,6 +381,7 @@ init
         { "kashes",             new[] { 0x482060, 0x269E14  } },
         // var game
         { "in_ending_cutscene", new[] { 0x481F9A, 0x269D4A } },
+        { "pearl",              new[] { 0x481DC2, 0x269C1A } },
         { "wizard_tunic",       new[] { 0x481F3A, 0x269CEA } },
         { "blowtron",           new[] { 0x4A2992, 0x28A840 } },
         { "pistolaser",         new[] { 0x4A285E, 0x28A70C } },
@@ -407,6 +409,7 @@ init
         vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["items_base"][idx] + (i * 2))) { Name = vars.itemLabels[i] });
     }
 
+    vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["pearl"][idx])) { Name = "pearl" });
     vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["wizard_tunic"][idx])) { Name = "wizard_tunic" });
     vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["blowtron"][idx])) { Name = "blowtron" });
     vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["pistolaser"][idx])) { Name = "pistolaser" });
@@ -571,6 +574,12 @@ split
     }
 
     // Items not in flags
+    if (!vars.CompletedSplits.Contains("it_STATE_PEARL") && IsSplitEnabled("it_STATE_PEARL") && watchers["pearl"].Current > 0)
+    {
+        vars.CompletedSplits.Add("it_STATE_PEARL");
+        vars.Log("Split: Pearl");
+        return true;
+    }
     if (!vars.CompletedSplits.Contains("it_STATE_WIZARD_TUNIC") && IsSplitEnabled("it_STATE_WIZARD_TUNIC") && watchers["wizard_tunic"].Current > 0)
     {
         vars.CompletedSplits.Add("it_STATE_WIZARD_TUNIC");
