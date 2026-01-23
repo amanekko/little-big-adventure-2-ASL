@@ -381,7 +381,7 @@ init
         { "kashes",             new[] { 0x482060, 0x269E14  } },
         // var game
         { "in_ending_cutscene", new[] { 0x481F9A, 0x269D4A } },
-        { "pearl",              new[] { 0x481DC2, 0x269C1A } },
+        { "pearl",              new[] { 0x481DC2, 0x269D62 } },
         { "wizard_tunic",       new[] { 0x481F3A, 0x269CEA } },
         { "blowtron",           new[] { 0x4A2992, 0x28A840 } },
         { "pistolaser",         new[] { 0x4A285E, 0x28A70C } },
