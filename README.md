@@ -72,6 +72,11 @@ The script automatically loads all `.xml` files located in the same directory as
     - `var_X=Y`: Splits if Variable X is exactly Y.
     - *Note*: IDs are direct memory indices. `var_0` is the first variable. `var_169` is collecting the Incandescent Pearl.
 
+### 🔍 Finding VAR Indices
+You can find the game variable indices using these community tools:
+- **[LBA2 Remake Editor](https://lba2remake.net/#editor=true)**: Web-based, very fast but can crash on certain scenes. Use the **"scripts"** tab to find all game variable changes / usage.
+- **[LBArchitect v1.2](https://moonbase.kaziq.net/d.php?n=LBArchitect_1.2.zip)**: More reliable desktop tool for advanced exploration.
+
 ## 🛠️ Technical Info
 - **Language**: ASL
 - **Base Addresses**: 
