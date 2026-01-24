@@ -36,17 +36,44 @@ You can enable or disable specific splits in the LiveSplit **Layout Settings** -
 - **Scenes**: Major location changes (Emerald Moon, Zeelish Surface, Undergas).
 - **Items**: Individual item pickups.
 - **MISC**: Specific challenges and side objectives.
-
-## 🛠️ Technical Info
-- **Language**: C# (ASL)
-- **Memory Watchers**:
-    - `scene`: Current Scene ID
-    - `kashes`: Current Money count
-    - `in_ending_cutscene`: Flag for the game ending
-    - `items_base`: Array of memory flags for inventory items
-    - Various state-specific offsets for upgrades and side-quests.
+- **Variables**: Dynamic game variables (VARs).
 
 ## 📝 Customizing Splits
-To add new splits, you can edit the `settingsTable` in the `.asl` script.
-- **Format**: `new[] { "ParentID", "UniqueID", "Description", "OptionalOldSceneID" }`
-- **Transition Split**: To create a transition split, use the format `scOld:scNew` for the ID (e.g., `"sc88:sc91"`).
+
+### 1. Internal Settings
+You can edit the `settingsTable` directly in the `.asl` script.
+- **Format**: `new[] { "ParentID", "UniqueID", "Description" }`
+
+### 2. External Configurations (.xml)
+The script automatically loads all `.xml` files located in the same directory as the `.asl` file. This allows you to create custom split packs without modifying the script.
+
+#### XML Structure
+```xml
+<Splits>
+    <!-- Scene Split: Entry into Scene 138 -->
+    <Split id="sc138" name="Otringal" />
+
+    <!-- Transition Split: Scene 80 to 91 -->
+    <Split id="sc80:sc91" name="Boss to Palace" />
+
+    <!-- Variable Split (Default > 0): VAR 166 -->
+    <Split id="var_166" name="Clear Weather" />
+
+    <!-- Variable Split (Specific Value): VAR 40 equals 2 -->
+    <Split id="var_40=2" name="Zoe Stage 2" />
+</Splits>
+```
+
+#### VARs Naming Rules
+- **Scenes**: `sc` + `SceneID` (e.g., `sc42`).
+- **Transitions**: `scOld` + `:` + `scNew` (e.g., `sc10:sc11`).
+- **Variables (VARs)**: 
+    - `var_X`: Splits if Variable X > 0.
+    - `var_X=Y`: Splits if Variable X is exactly Y.
+    - *Note*: IDs are direct memory indices. `var_0` is the first variable. `var_169` is collecting the Incandescent Pearl.
+
+## 🛠️ Technical Info
+- **Language**: ASL
+- **Base Addresses**: 
+    - `items_base`: `0x269C10` (DOSBox) / `0x481E60` (Classic)
+    - `vars_base`: `0x269C10` (DOSBox) / `0x481E60` (Classic)
