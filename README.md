@@ -45,7 +45,7 @@ You can edit the `settingsTable` directly in the `.asl` script.
 - **Format**: `new[] { "ParentID", "UniqueID", "Description" }`
 
 ### 2. External Configurations (.xml)
-The script automatically loads all `.xml` files located in the same directory as the `.asl` file. This allows you to create custom split packs without modifying the script.
+The script automatically loads all `.xml` files located in the **same directory** as the `.asl` file. This allows you to create custom split packs without modifying the script.
 
 #### XML Structure
 ```xml
