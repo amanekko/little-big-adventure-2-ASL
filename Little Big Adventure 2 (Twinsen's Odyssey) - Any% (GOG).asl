@@ -13,6 +13,8 @@ state("dosbox", "DOSBox") {}
 startup
 {
     vars.Log = (Action<string>)(s => print("[LBA2] " + s));
+    vars.varLabels = new Dictionary<int, string>();
+    vars.varTargets = new Dictionary<string, int>();
 
     vars.itemLabels = new List<string>()
     {
@@ -122,6 +124,25 @@ startup
                                 string settingsParentId = (parentId == null) ? cfgId : (fName + "_" + parentId);
                                 
                                 settings.Add(settingsUniqueId, true, name, settingsParentId);
+
+                                // Support variable registration from XML IDs
+                                if (id.StartsWith("var_"))
+                                {
+                                     var varMatch = System.Text.RegularExpressions.Regex.Match(id, @"var_(\d+)(?:=(\d+))?");
+                                     if (varMatch.Success)
+                                     {
+                                         int index = int.Parse(varMatch.Groups[1].Value);
+                                         if (index >= 0 && index <= 255)
+                                         {
+                                             // XML variables use the unique ID (filename_id) to avoid collisions
+                                             vars.varLabels[index] = settingsUniqueId;
+                                             if (varMatch.Groups[2].Success)
+                                             {
+                                                 vars.varTargets[settingsUniqueId] = int.Parse(varMatch.Groups[2].Value);
+                                             }
+                                         }
+                                     }
+                                }
                                 
                                 foreach (System.Xml.XmlNode child in node.ChildNodes)
                                 {
@@ -149,7 +170,7 @@ startup
         vars.Log("Error loading Scene XMLs: " + ex.Message);
     }
 
-    // Parse Settings Table with Duplicate ID Support
+    // Parser Settings Table with Duplicate ID Support
     string[,] settingsTable =
     {
         { null, "Categories", "Categories" },
@@ -167,7 +188,7 @@ startup
                 { "Glitchless", "sc46:sc42", "Lighthouse" },
                 { "Glitchless", "it_FLAG_DIPLOME", "Magic Diploma" },
                 { "Glitchless", "sc92:sc47", "Twinsun" },
-                { "Glitchless", "it_STATE_PEARL", "Red Pearl" },
+                { "Glitchless", "var_169_collected_pearl_incandescent", "Red Pearl" },
                 { "Glitchless", "sc17:sc42", "Sewers" },
                 { "Glitchless", "sc75", "Moon" },
                 { "Glitchless", "sc138", "Otringal" },
@@ -184,10 +205,10 @@ startup
                 { "All achievements", "sc75", "Moonlander" },
                 { "All achievements", "sc146", "Gazogem secrets" },
                 { "All achievements", "sc110", "Go..To..C..X.." },
-                { "All achievements", "misc_var_166_clear_weather", "Rainman" },
-                { "All achievements", "misc_var_42_heal_dinofly", "Dino-buddy" },
-                { "All achievements", "it_STATE_WIZARD_TUNIC", "It's magic!" },
-                { "All achievements", "misc_var_161_heal_clam_joe", "Free Joe" },
+                { "All achievements", "var_166_clear_weather", "Rainman" },
+                { "All achievements", "var_42_heal_dinofly", "Dino-buddy" },
+                { "All achievements", "var_109_wizard_tunic", "It's magic!" },
+                { "All achievements", "var_161_heal_clam_joe", "Free Joe" },
                 { "All achievements", "it_FLAG_BOULE_SENDELL", "Ball of Sendell" },
                 { "All achievements", "it_STATE_SUPER_JETPACK", "Super Upgrade" },
                 { "All achievements", "it_FLAG_PROTECTION", "Protection" },
@@ -196,7 +217,7 @@ startup
                 { "All achievements", "misc_kiss_frog", "Prince Charming" },
                 { "All achievements", "misc_dog_hop", "Who let the dogs out?" },
                 { "All achievements", "misc_on_track", "On track! (may be unstable)" },
-                { "All achievements", "misc_var_118_heal_bowler", "I've got your back" },
+                { "All achievements", "var_118_heal_bowler", "I've got your back" },
                 { "All achievements", "misc_kill_time_commando", "Time Commando (may be unstable)" },
                 { "All achievements", "misc_kash_cow", "Kash Cow" },
                 { "All achievements", "misc_op_achievement", "OP" },
@@ -242,18 +263,21 @@ startup
             { "Items", vars.itemLabels[37], "Burgomaster Key" },
             { "Items", vars.itemLabels[38], "Burgomaster Note" },
             { "Items", vars.itemLabels[39], "Protection 🏆" },
-            { "Items", "it_STATE_PEARL", "Pearl" }, 
-            { "Items", "it_STATE_WIZARD_TUNIC", "Wizard Tunic 🏆" }, 
             { "Items", "it_STATE_BLOWTRON", "Blowtron 🏆" },
             { "Items", "it_STATE_COMPLETED_PISTOLASER", "Completed Pistolaser 🏆" },
             { "Items", "it_STATE_SUPER_JETPACK", "Super Jetpack 🏆" },
             
+        { null, "Variables", "Variables" },
+            { "Variables", "var_40_zoe_status", "Zoe Status" },
+            { "Variables", "var_42_heal_dinofly", "Heal Dinofly 🏆" }, 
+            { "Variables", "var_161_heal_clam_joe", "Heal Clam Joe 🏆" },
+            { "Variables", "var_118_heal_bowler", "Heal Bowler 🏆" }, 
+            { "Variables", "var_166_clear_weather", "Clear Weather 🏆" },
+            { "Variables", "var_109_wizard_tunic", "Wizard Tunic 🏆" },
+            { "Variables", "var_169_collected_pearl_incandescent", "Collected Pearl Incandescent" },
+
         { null, "MISC", "Miscellaneous" },
             { "MISC", "misc_op_achievement", "OP Achievement 🏆" },
-            { "MISC", "misc_var_42_heal_dinofly", "Heal Dinofly 🏆" }, 
-            { "MISC", "misc_var_161_heal_clam_joe", "Heal Clam Joe 🏆" },
-            { "MISC", "misc_var_118_heal_bowler", "Heal Bowler 🏆" }, 
-            { "MISC", "misc_var_166_clear_weather", "Clear Weather 🏆" },  
             { "MISC", "misc_mine_crane", "Mine Crane 🏆" }, 
             { "MISC", "misc_kiss_frog", "Kiss Frog 🏆" }, 
             { "MISC", "misc_kill_time_commando", "Kill Time Comando (may be unstable) 🏆" }, 
@@ -323,7 +347,27 @@ startup
         vars.SplitMap[id].Add(effectiveId);
     }
     
-    // Also add XML loaded splits to this map if needed, but for now user is focusing on hardcoded table.
+    // Dynamic Variable Labels Parsing (e.g. var_166 -> Index 166)
+    for (int i = 0; i < settingsTable.GetLength(0); i++)
+    {
+        string id = settingsTable[i, 1];
+        if (id != null && id.StartsWith("var_"))
+        {
+             var match = System.Text.RegularExpressions.Regex.Match(id, @"var_(\d+)(?:=(\d+))?");
+             if (match.Success)
+             {
+                 int index = int.Parse(match.Groups[1].Value);
+                 if (index >= 0 && index <= 255)
+                 {
+                     vars.varLabels[index] = id;
+                     if (match.Groups[2].Success)
+                     {
+                         vars.varTargets[id] = int.Parse(match.Groups[2].Value);
+                     }
+                 }
+             }
+        }
+    }
 
     vars.CompletedSplits = new HashSet<string>();
 }
@@ -378,18 +422,13 @@ init
     var offsets = new Dictionary<string, int[]> {
         { "scene",              new[] { 0x47FEC8, 0x267C7C } },
         { "items_base",         new[] { 0x481E60, 0x269C10  } },
+        { "vars_base",          new[] { 0x481E60, 0x269C10  } },
         { "kashes",             new[] { 0x482060, 0x269E14  } },
         // var game
-        { "in_ending_cutscene", new[] { 0x481F9A, 0x269D4A } },
-        { "pearl",              new[] { 0x481DC2, 0x269D62 } },
-        { "wizard_tunic",       new[] { 0x481F3A, 0x269CEA } },
+        { "in_ending_cutscene", new[] { 0x481F9A, 0x269D4A } }, // var_157
         { "blowtron",           new[] { 0x4A2992, 0x28A840 } },
         { "pistolaser",         new[] { 0x4A285E, 0x28A70C } },
         { "super_jetpack",      new[] { 0x4A28A0, 0x28A74E } },
-        { "heal_dinofly",       new[] { 0x481EB4, 0x269C64 } },
-        { "heal_clam_joe",      new[] { 0x481FA2, 0x269D52 } },
-        { "heal_bowler",        new[] { 0x481F4C, 0x269CFC } },
-        { "clear_weather",      new[] { 0x481FAC, 0x269D5C } },
         // var scenes 
         { "mine_crane",         new[] { 0x481E10, 0x269BC0 } },    
         // var track
@@ -409,15 +448,15 @@ init
         vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["items_base"][idx] + (i * 2))) { Name = vars.itemLabels[i] });
     }
 
-    vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["pearl"][idx])) { Name = "pearl" });
-    vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["wizard_tunic"][idx])) { Name = "wizard_tunic" });
+    // Variables - Dynamically added ushorts from vars.varLabels
+    foreach (var pair in vars.varLabels)
+    {
+        vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["vars_base"][idx] + (pair.Key * 2))) { Name = pair.Value });
+    }
+
     vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["blowtron"][idx])) { Name = "blowtron" });
     vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["pistolaser"][idx])) { Name = "pistolaser" });
     vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["super_jetpack"][idx])) { Name = "super_jetpack" });
-    vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["heal_dinofly"][idx])) { Name = "heal_dinofly" });
-    vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["heal_clam_joe"][idx])) { Name = "heal_clam_joe" });
-    vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["heal_bowler"][idx])) { Name = "heal_bowler" });
-    vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["clear_weather"][idx])) { Name = "clear_weather" });
     vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["mine_crane"][idx])) { Name = "mine_crane" });
     vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["kill_time_commando"][idx])) { Name = "kill_time_commando" });
     vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["on_track"][idx])) { Name = "on_track" });
@@ -574,18 +613,6 @@ split
     }
 
     // Items not in flags
-    if (!vars.CompletedSplits.Contains("it_STATE_PEARL") && IsSplitEnabled("it_STATE_PEARL") && watchers["pearl"].Current > 0)
-    {
-        vars.CompletedSplits.Add("it_STATE_PEARL");
-        vars.Log("Split: Pearl");
-        return true;
-    }
-    if (!vars.CompletedSplits.Contains("it_STATE_WIZARD_TUNIC") && IsSplitEnabled("it_STATE_WIZARD_TUNIC") && watchers["wizard_tunic"].Current > 0)
-    {
-        vars.CompletedSplits.Add("it_STATE_WIZARD_TUNIC");
-        vars.Log("Split: Wizard Tunic");
-        return true;
-    }
     if (!vars.CompletedSplits.Contains("it_STATE_BLOWTRON") && IsSplitEnabled("it_STATE_BLOWTRON") && watchers["blowtron"].Current > 0)
     {
         vars.CompletedSplits.Add("it_STATE_BLOWTRON");
@@ -605,35 +632,30 @@ split
         return true;
     }
 
+    // VARIABLE SPLITS
+    foreach (var pair in vars.varLabels)
+    {
+        string key = pair.Value;
+        if (!vars.CompletedSplits.Contains(key) && IsSplitEnabled(key))
+        {
+             int target = 0;
+             bool hasTarget = vars.varTargets.TryGetValue(key, out target);
+             bool condition = hasTarget ? (watchers[key].Current == target) : (watchers[key].Current > 0);
+
+             if (condition)
+             {
+                 vars.CompletedSplits.Add(key);
+                 vars.Log("Split Var: " + key + (hasTarget ? " (target: " + target + ")" : ""));
+                 return true;
+             }
+        }
+    }
+
     // MISC SPLITS
     if (!vars.CompletedSplits.Contains("misc_kash_cow") && IsSplitEnabled("misc_kash_cow") && watchers["kashes"].Current > 499)
     {
         vars.CompletedSplits.Add("misc_kash_cow");
         vars.Log("Split: Kash Cow");
-        return true;
-    }
-    if (!vars.CompletedSplits.Contains("misc_var_42_heal_dinofly") && IsSplitEnabled("misc_var_42_heal_dinofly") && watchers["heal_dinofly"].Current > 0)
-    {
-        vars.CompletedSplits.Add("misc_var_42_heal_dinofly");
-        vars.Log("Split: Heal Dinofly");
-        return true;
-    }
-    if (!vars.CompletedSplits.Contains("misc_var_161_heal_clam_joe") && IsSplitEnabled("misc_var_161_heal_clam_joe") && watchers["heal_clam_joe"].Current > 0)
-    {
-        vars.CompletedSplits.Add("misc_var_161_heal_clam_joe");
-        vars.Log("Split: Heal Clam Joe");
-        return true;
-    }
-    if (!vars.CompletedSplits.Contains("misc_var_118_heal_bowler") && IsSplitEnabled("misc_var_118_heal_bowler") && watchers["heal_bowler"].Current > 0)
-    {
-        vars.CompletedSplits.Add("misc_var_118_heal_bowler");
-        vars.Log("Split: Heal Bowler");
-        return true;
-    }
-    if (!vars.CompletedSplits.Contains("misc_var_166_clear_weather") && IsSplitEnabled("misc_var_166_clear_weather") && watchers["clear_weather"].Current > 0)
-    {
-        vars.CompletedSplits.Add("misc_var_166_clear_weather");
-        vars.Log("Split: Clear Weather");
         return true;
     }
 
