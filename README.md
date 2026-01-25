@@ -16,25 +16,18 @@ Automatically splits when entering specific scenes.
     - *Example*: `sc80:sc91` (Entering Emperor Palace *only* from the Final Boss Room).
     - These are indicated by a 🔀 symbol in the settings menu.
 
-### 🎒 Item Splits
-Splits immediately upon acquiring items or upgrades:
-- **Inventory Items**: Holomap, Magic Ball, Dart, Sendell Ball, Tunic, Pearl, etc.
-- **Key Items**: Pyramid Key, Wheel, Keys (Knarta, Sup, Mosqui, Blafard, Queen, Burgomaster).
-- **Upgrades**: Laser Pistol (and Completed Pistolaser), Super Jetpack, Wizard Tunic, Blowtron.
-
-### 🏆 Miscellaneous & Achievements
-Splits on specific in-game events, side-quests, or tricks:
-- **Quests**: Heal Dinofly, Heal Clam Joe, Heal Bowler.
-- **Events**: Clear Weather, Mine Crane, Kiss Frog.
-- **Economy**: "Kash Cow" (Collecting 500+ Kashes).
-- **Speedrun Tricks**: Dog Hop, Kill Time Commando, "On Track".
+### 🎒 Item & Variable Splits
+The script treats most game progress as changes in **Game Variables (VARs)**. It simplifies splitting by unifying everything into a variable-based system:
+- **Items (VARs 0-39)**: All inventory items (Holomap, Magic Ball, etc.) are the first 40 variables.
+- **Progress Variables**: Side-quests (Heal Dinofly, Joe), weather changes, and achievements.
+- **Specific Flags**: A few internal flags (Blowtron, Super Jetpack) remain as specific states.
 
 ## ⚙️ Configuration
 You can enable or disable specific splits in the LiveSplit **Layout Settings** -> **Scriptable Auto Splitter** -> **Settings**.
 
 ### Categories
-- **Scenes**: Major location changes (Emerald Moon, Zeelish Surface, Undergas).
-- **Items**: Individual item pickups.
+- **Scenes**: Major location changes and transitions.
+- **Items**: The first 40 variables representing your inventory.
 - **MISC**: Specific challenges and side objectives.
 - **Variables**: Dynamic game variables (VARs).
 
@@ -79,6 +72,5 @@ You can find the game variable indices using these community tools:
 
 ## 🛠️ Technical Info
 - **Language**: ASL
-- **Base Addresses**: 
-    - `items_base`: `0x269C10` (DOSBox) / `0x481E60` (Classic)
-    - `vars_base`: `0x269C10` (DOSBox) / `0x481E60` (Classic)
+- **Memory Address (VARs Base)**: `0x481E60` (Classic) / `0x269C10` (DOSBox)
+- **Data Type**: All variables are read as 2-byte unsigned integers (`ushort`).

@@ -16,49 +16,6 @@ startup
     vars.varLabels = new Dictionary<int, string>();
     vars.varTargets = new Dictionary<string, int>();
 
-    vars.itemLabels = new List<string>()
-    {
-        "it_FLAG_HOLOMAP",
-        "it_FLAG_BALLE_MAGIQUE", 
-        "it_FLAG_DART",
-        "it_FLAG_BOULE_SENDELL", 
-        "it_FLAG_TUNIQUE",
-        "it_FLAG_PERLE_OR_TOKEN",
-        "it_FLAG_CLEF_PYRAMID",
-        "it_FLAG_VOLANT",
-        "it_FLAG_MONEY",
-        "it_FLAG_PISTOLASER",
-        "it_FLAG_SABRE",
-        "it_FLAG_GANT",
-        "it_FLAG_PROTOPACK",
-        "it_FLAG_TICKET_FERRY", 
-        "it_FLAG_MECA_PINGOUIN", 
-        "it_FLAG_GAZOGEM",
-        "it_FLAG_DISSIDENT_RING", 
-        "it_FLAG_ACIDE_GALLIQUE", 
-        "it_FLAG_CHANSON",
-        "it_FLAG_ANNEAU_FOUDRE", 
-        "it_FLAG_PARAPLUIE",
-        "it_FLAG_GEMME",
-        "it_FLAG_CONQUE",
-        "it_FLAG_SARBACANE",
-        "it_FLAG_DISQUE_ROUTE", 
-        "it_FLAG_TART_LUCI", 
-        "it_FLAG_RADIO",
-        "it_FLAG_FLEUR",
-        "it_FLAG_ARDOISE",
-        "it_FLAG_TRADUCTEUR",
-        "it_FLAG_DIPLOME",
-        "it_FLAG_DMKEY_KNARTA", 
-        "it_FLAG_DMKEY_SUP", 
-        "it_FLAG_DMKEY_MOSQUI", 
-        "it_FLAG_DMKEY_BLAFARD", 
-        "it_FLAG_CLE_REINE", 
-        "it_FLAG_PIOCHE",
-        "it_FLAG_CLEF_BOURGMESTRE", 
-        "it_FLAG_NOTE_BOURGMESTRE", 
-        "it_FLAG_PROTECTION",
-    };
 
     // Scene Splits - Load ALL XMLs
     vars.xmlNames = new List<string>();
@@ -186,20 +143,20 @@ startup
 
             { "Categories", "Glitchless", "Glitchless" },
                 { "Glitchless", "sc46:sc42", "Lighthouse" },
-                { "Glitchless", "it_FLAG_DIPLOME", "Magic Diploma" },
+                { "Glitchless", "var_30_diploma", "Magic Diploma" },
                 { "Glitchless", "sc92:sc47", "Twinsun" },
                 { "Glitchless", "var_169_collected_pearl_incandescent", "Red Pearl" },
                 { "Glitchless", "sc17:sc42", "Sewers" },
                 { "Glitchless", "sc75", "Moon" },
                 { "Glitchless", "sc138", "Otringal" },
-                { "Glitchless", "it_FLAG_DMKEY_KNARTA", "Franco Fragment" },
-                { "Glitchless", "it_FLAG_DISSIDENT_RING", "Dissident Ring" },
+                { "Glitchless", "var_31_dmkey_knarta", "Franco Fragment" },
+                { "Glitchless", "var_16_dissident_ring", "Dissident Ring" },
                 { "Glitchless", "sc123", "Undergas" },
-                { "Glitchless", "it_FLAG_DMKEY_BLAFARD", "Wannie Fragment" },
-                { "Glitchless", "it_FLAG_DMKEY_MOSQUI", "Mosquibee Fragment" },
+                { "Glitchless", "var_34_dmkey_blafard", "Wannie Fragment" },
+                { "Glitchless", "var_33_dmkey_mosqui", "Mosquibee Fragment" },
                 { "Glitchless", "sc110", "Island CX" },
                 { "Glitchless", "sc110:sc88", "Palace" },
-                { "Glitchless", "it_FLAG_DMKEY_SUP", "Sup Fragment" },
+                { "Glitchless", "var_32_dmkey_sup", "Sup Fragment" },
         
             { "Categories", "All achievements", "All achievements 🏆" },
                 { "All achievements", "sc75", "Moonlander" },
@@ -209,10 +166,10 @@ startup
                 { "All achievements", "var_42_heal_dinofly", "Dino-buddy" },
                 { "All achievements", "var_109_wizard_tunic", "It's magic!" },
                 { "All achievements", "var_161_heal_clam_joe", "Free Joe" },
-                { "All achievements", "it_FLAG_BOULE_SENDELL", "Ball of Sendell" },
+                { "All achievements", "var_3_sendell_ball", "Ball of Sendell" },
                 { "All achievements", "it_STATE_SUPER_JETPACK", "Super Upgrade" },
-                { "All achievements", "it_FLAG_PROTECTION", "Protection" },
-                { "All achievements", "it_FLAG_CHANSON", "Ferryman Song" },
+                { "All achievements", "var_39_protection", "Protection" },
+                { "All achievements", "var_18_ferryman_song", "Ferryman Song" },
                 { "All achievements", "misc_mine_crane", "Crane Driver" },
                 { "All achievements", "misc_kiss_frog", "Prince Charming" },
                 { "All achievements", "misc_dog_hop", "Who let the dogs out?" },
@@ -223,46 +180,46 @@ startup
                 { "All achievements", "misc_op_achievement", "OP" },
 
         { null, "Items", "Items" },
-            { "Items", vars.itemLabels[0], "Holomap" },
-            { "Items", vars.itemLabels[1], "Magic Ball" },
-            { "Items", vars.itemLabels[2], "Dart" },
-            { "Items", vars.itemLabels[3], "Sendell Ball" },
-            { "Items", vars.itemLabels[4], "Tunic" },
-            { "Items", vars.itemLabels[5], "Pearl / Itinerary Token" },
-            { "Items", vars.itemLabels[6], "Pyramid Key" },
-            { "Items", vars.itemLabels[7], "Wheel" },
-            { "Items", vars.itemLabels[8], "Kash" },
-            { "Items", vars.itemLabels[9], "Laser Pistol" },
-            { "Items", vars.itemLabels[10], "Sabre" },
-            { "Items", vars.itemLabels[11], "Glove" },
-            { "Items", vars.itemLabels[12], "Protopack" },
-            { "Items", vars.itemLabels[13], "Ferry Ticket" },
-            { "Items", vars.itemLabels[14], "Meca Penguin" },
-            { "Items", vars.itemLabels[15], "Gazogem" },
-            { "Items", vars.itemLabels[16], "Dissidents Ring" },
-            { "Items", vars.itemLabels[17], "Acide Gallique" },
-            { "Items", vars.itemLabels[18], "Ferryman Song 🏆" },
-            { "Items", vars.itemLabels[19], "Ring of Lightning" },
-            { "Items", vars.itemLabels[20], "Umbrella" },
-            { "Items", vars.itemLabels[21], "Gem" },
-            { "Items", vars.itemLabels[22], "Conque" },
-            { "Items", vars.itemLabels[23], "Blowpipe" },
-            { "Items", vars.itemLabels[24], "Road Disk" },
-            { "Items", vars.itemLabels[25], "Tart Luci" },
-            { "Items", vars.itemLabels[26], "Radio" },
-            { "Items", vars.itemLabels[27], "Flower" },
-            { "Items", vars.itemLabels[28], "Slate" },
-            { "Items", vars.itemLabels[29], "Translator" },
-            { "Items", vars.itemLabels[30], "Diploma" },
-            { "Items", vars.itemLabels[31], "DMKey Knarta" },
-            { "Items", vars.itemLabels[32], "DMKey Sup" },
-            { "Items", vars.itemLabels[33], "DMKey Mosqui" },
-            { "Items", vars.itemLabels[34], "DMKey Blafard" },
-            { "Items", vars.itemLabels[35], "Queen Key" },
-            { "Items", vars.itemLabels[36], "Pickaxe" },
-            { "Items", vars.itemLabels[37], "Burgomaster Key" },
-            { "Items", vars.itemLabels[38], "Burgomaster Note" },
-            { "Items", vars.itemLabels[39], "Protection 🏆" },
+            { "Items", "var_0_holomap", "Holomap" },
+            { "Items", "var_1_magic_ball", "Magic Ball" },
+            { "Items", "var_2_dart", "Dart" },
+            { "Items", "var_3_sendell_ball", "Sendell Ball" },
+            { "Items", "var_4_tunic", "Tunic" },
+            { "Items", "var_5_pearl_token", "Pearl / Itinerary Token" },
+            { "Items", "var_6_pyramid_key", "Pyramid Key" },
+            { "Items", "var_7_wheel", "Wheel" },
+            { "Items", "var_8_kash", "Kash" },
+            { "Items", "var_9_laser_pistol", "Laser Pistol" },
+            { "Items", "var_10_sabre", "Sabre" },
+            { "Items", "var_11_glove", "Glove" },
+            { "Items", "var_12_protopack", "Protopack" },
+            { "Items", "var_13_ferry_ticket", "Ferry Ticket" },
+            { "Items", "var_14_meca_penguin", "Meca Penguin" },
+            { "Items", "var_15_gazogem", "Gazogem" },
+            { "Items", "var_16_dissident_ring", "Dissidents Ring" },
+            { "Items", "var_17_acide_gallique", "Acide Gallique" },
+            { "Items", "var_18_ferryman_song", "Ferryman Song 🏆" },
+            { "Items", "var_19_ring_lightning", "Ring of Lightning" },
+            { "Items", "var_20_umbrella", "Umbrella" },
+            { "Items", "var_21_gem", "Gem" },
+            { "Items", "var_22_conque", "Conque" },
+            { "Items", "var_23_blowpipe", "Blowpipe" },
+            { "Items", "var_24_road_disk", "Road Disk" },
+            { "Items", "var_25_tart_luci", "Tart Luci" },
+            { "Items", "var_26_radio", "Radio" },
+            { "Items", "var_27_flower", "Flower" },
+            { "Items", "var_28_slate", "Slate" },
+            { "Items", "var_29_translator", "Translator" },
+            { "Items", "var_30_diploma", "Diploma" },
+            { "Items", "var_31_dmkey_knarta", "DMKey Knarta" },
+            { "Items", "var_32_dmkey_sup", "DMKey Sup" },
+            { "Items", "var_33_dmkey_mosqui", "DMKey Mosqui" },
+            { "Items", "var_34_dmkey_blafard", "DMKey Blafard" },
+            { "Items", "var_35_queen_key", "Queen Key" },
+            { "Items", "var_36_pickaxe", "Pickaxe" },
+            { "Items", "var_37_burgomaster_key", "Burgomaster Key" },
+            { "Items", "var_38_burgomaster_note", "Burgomaster Note" },
+            { "Items", "var_39_protection", "Protection 🏆" },
             { "Items", "it_STATE_BLOWTRON", "Blowtron 🏆" },
             { "Items", "it_STATE_COMPLETED_PISTOLASER", "Completed Pistolaser 🏆" },
             { "Items", "it_STATE_SUPER_JETPACK", "Super Jetpack 🏆" },
@@ -421,7 +378,6 @@ init
     // Dictionary of offsets [Classic, DOS]
     var offsets = new Dictionary<string, int[]> {
         { "scene",              new[] { 0x47FEC8, 0x267C7C } },
-        { "items_base",         new[] { 0x481E60, 0x269C10  } },
         { "vars_base",          new[] { 0x481E60, 0x269C10  } },
         { "kashes",             new[] { 0x482060, 0x269E14  } },
         // var game
@@ -441,12 +397,6 @@ init
     vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["scene"][idx])) { Name = "scene" });
     vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["in_ending_cutscene"][idx])) { Name = "in_ending_cutscene" });
     vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["kashes"][idx])) { Name = "kashes" });
-    
-    // Items - Individually added ushorts
-    for (int i = 0; i < vars.itemLabels.Count; i++)
-    {
-        vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["items_base"][idx] + (i * 2))) { Name = vars.itemLabels[i] });
-    }
 
     // Variables - Dynamically added ushorts from vars.varLabels
     foreach (var pair in vars.varLabels)
@@ -600,17 +550,6 @@ split
         }
     }
 
-    // ITEM SPLITS
-    for (int i = 0; i < vars.itemLabels.Count; i++)
-    {
-        string key = vars.itemLabels[i];
-        if (!vars.CompletedSplits.Contains(key) && IsSplitEnabled(key) && watchers[key].Current > 0)
-        {
-            vars.CompletedSplits.Add(key);
-            vars.Log("Split Item " + key);
-            return true;
-        }
-    }
 
     // Items not in flags
     if (!vars.CompletedSplits.Contains("it_STATE_BLOWTRON") && IsSplitEnabled("it_STATE_BLOWTRON") && watchers["blowtron"].Current > 0)
@@ -694,7 +633,7 @@ split
     // OP Achievement
     if (!vars.CompletedSplits.Contains("misc_op_achievement") && IsSplitEnabled("misc_op_achievement"))
     {
-         if (watchers["it_FLAG_BALLE_MAGIQUE"].Current > 0 &&
+         if (watchers["var_1_magic_ball"].Current > 0 &&
              watchers["blowtron"].Current > 0 &&
              watchers["super_jetpack"].Current > 0 &&
              watchers["pistolaser"].Current > 1)
