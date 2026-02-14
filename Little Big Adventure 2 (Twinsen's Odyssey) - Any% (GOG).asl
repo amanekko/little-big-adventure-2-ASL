@@ -5,6 +5,7 @@
 
 // -------- STATES --------
 
+state("TWINSEN", "Win95") {}
 state("TLBA2C", "Classic") {}
 state("dosbox", "DOSBox") {}
 
@@ -366,6 +367,14 @@ init
         idx = 1;
         vars.Log("DOSBox detected. Emulated RAM ptr: 0x" + dosBoxBaseValue.ToString("X"));
     }
+    else if (procName.Contains("twinsen") )
+    {
+        // Win95: Original version, use module base
+        var win95Module = modules.FirstOrDefault(m => m.ModuleName.ToLower().Contains("twinsen"));
+        baseAddr = (win95Module != null) ? win95Module.BaseAddress : modules.First().BaseAddress;
+        idx = 2;
+        vars.Log("Win95 version detected (Name: " + procName + ", Module: " + (win95Module != null ? win95Module.ModuleName : "Default") + "). Base: 0x" + baseAddr.ToString("X"));
+    }
     else
     {
         vars.Log("Unknown process: " + procName);
@@ -375,23 +384,23 @@ init
          return new DeepPointer(baseAddr + offset);
     };   
     
-    // Dictionary of offsets [Classic, DOS]
+    // Dictionary of offsets [Classic, DOS, Win95]
     var offsets = new Dictionary<string, int[]> {
-        { "scene",              new[] { 0x47FEC8, 0x267C7C } },
-        { "vars_base",          new[] { 0x481E60, 0x269C10  } },
-        { "kashes",             new[] { 0x482060, 0x269E14  } },
+        { "scene",              new[] { 0x47FEC8, 0x267C7C, 0x97EF0  } },
+        { "vars_base",          new[] { 0x481E60, 0x269C10, 0x99E84  } },
+        { "kashes",             new[] { 0x482060, 0x269E14, 0x9A088  } },
         // var game
-        { "in_ending_cutscene", new[] { 0x481F9A, 0x269D4A } }, // var_157
-        { "blowtron",           new[] { 0x4A2992, 0x28A840 } },
-        { "pistolaser",         new[] { 0x4A285E, 0x28A70C } },
-        { "super_jetpack",      new[] { 0x4A28A0, 0x28A74E } },
+        { "in_ending_cutscene", new[] { 0x481F9A, 0x269D4A, 0x99FBE  } }, // var_157
+        { "blowtron",           new[] { 0x4A2992, 0x28A840, 0xBAAB4  } },
+        { "pistolaser",         new[] { 0x4A285E, 0x28A70C, 0xBA980  } },
+        { "super_jetpack",      new[] { 0x4A28A0, 0x28A74E, 0xBA9C2  } },
         // var scenes 
-        { "mine_crane",         new[] { 0x481E10, 0x269BC0 } },    
+        { "mine_crane",         new[] { 0x481E10, 0x269BC0, 0x99E34  } },    
         // var track
-        { "track",              new[] { 0x48235C, 0x26A110 } },
+        { "track",              new[] { 0x48235C, 0x26A110, 0x9A384  } },
         // unknown
-        { "kill_time_commando", new[] { 0x4BD2C2, 0x26B268 } }, // 139 & 65535 -> may be unstable
-        { "on_track",           new[] { 0x47F6D4, 0x39FA50 } } // may be unstable
+        { "kill_time_commando", new[] { 0x4BD2C2, 0x26B268, 0x9B4DC  } }, // 139 & 65535 -> may be unstable
+        { "on_track",           new[] { 0x47F6D4, 0x39FA50, 0x1CF934 } } // may be unstable
     };
 
     vars.Watchers.Add(new MemoryWatcher<ushort>(GetPtr(offsets["scene"][idx])) { Name = "scene" });
